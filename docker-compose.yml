@@ -1,0 +1,18 @@
+﻿services:
+  nginx:
+    image: nginx:alpine
+    container_name: lab4_recipes_nginx
+    ports:
+      - "8081:80"
+    volumes:
+      - ./www:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - php
+
+  php:
+    image: php:8.2-fpm-alpine
+    container_name: lab4_recipes_php
+    volumes:
+      - ./www:/var/www/html
+    working_dir: /var/www/html
