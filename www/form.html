@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск рецептов - API рецептов</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+        
+        input[type="text"],
+        input[type="search"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: #f8f9fa;
+        }
+        
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: #ff7e5f;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.1);
+        }
+        
+        button {
+            width: 100%;
+            background: linear-gradient(135deg, #ff7e5f 0%, #feb47b 100%);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 126, 95, 0.3);
+        }
+        
+        .required {
+            color: #e74c3c;
+        }
+        
+        .nav {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .nav a {
+            color: #ff7e5f;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        
+        .api-info {
+            background: #fffaf0;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+            border-left: 4px solid #ff7e5f;
+        }
+        
+        .recipe-suggestions {
+            margin-top: 5px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🍳 Поиск рецептов</h1>
+        
+        <div class="api-info">
+            <strong>ℹ️ Используется API:</strong> The Meal DB<br>
+            <strong>🔗 Ссылка:</strong> https://www.themealdb.com/api/json/v1/1/search.php?s=...
+        </div>
+        
+        <form id="recipeForm" action="process.php" method="POST">
+            <!-- Имя -->
+            <div class="form-group">
+                <label for="name">Ваше имя <span class="required">*</span></label>
+                <input type="text" id="name" name="name" placeholder="Введите ваше имя" required>
+            </div>
+
+            <!-- Поиск рецепта -->
+            <div class="form-group">
+                <label for="recipe">Найдите рецепт <span class="required">*</span></label>
+                <input type="search" id="recipe" name="recipe" list="recipes" placeholder="Начните вводить название блюда..." required>
+                <datalist id="recipes">
+                    <option value="Pizza">
+                    <option value="Pasta">
+                    <option value="Burger">
+                    <option value="Sushi">
+                    <option value="Salad">
+                    <option value="Soup">
+                    <option value="Cake">
+                    <option value="Chicken">
+                    <option value="Beef">
+                    <option value="Fish">
+                </datalist>
+                <div class="recipe-suggestions">
+                    Попробуйте: Pizza, Pasta, Burger, Sushi, Chicken, Beef
+                </div>
+            </div>
+
+            <button type="submit">Найти рецепт и получить данные API</button>
+        </form>
+
+        <div class="nav">
+            <a href="index.php">← На главную</a>
+        </div>
+    </div>
+
+    <script>
+        // Alert перед отправкой как требуется в задании
+        document.getElementById("recipeForm").addEventListener("submit", function(e) {
+            const name = this.name.value;
+            const recipe = this.recipe.value;
+            
+            alert("Вы ввели:\n\nИмя: " + name + "\nРецепт: " + recipe + "\n\nПосле отправки вы получите информацию о рецепте из API!");
+        });
+    </script>
+</body>
+</html>
